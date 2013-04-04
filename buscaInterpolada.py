@@ -14,9 +14,10 @@ from random import randint
 from time import time
 
 
-TAMANHO = 20000
+TAMANHO = 10000000
 MAX = 1000000
-N_BUSCAS = 800000
+MAX_PASSO = 1
+N_BUSCAS = 10000
 
 
 def busca_binaria(valor, lista):
@@ -87,6 +88,7 @@ def avaliar_busca(funcao, nome_funcao, lista):
     tempo_inicial = time()
     for i in range(N_BUSCAS):
         chave = randint(1,lista[-1])
+        # chave = 2000
         total_acessos += funcao(chave, lista)
 
     media_acessos = total_acessos / N_BUSCAS
@@ -97,11 +99,22 @@ def avaliar_busca(funcao, nome_funcao, lista):
 
 # main
                                                       
+tempo_inicial = time()
+
 conjunto = set()
 for i in range(TAMANHO):
     x = randint(1,MAX)
     conjunto.add(x)
 lista = sorted(list(conjunto))
+
+##ultimo = 1
+##lista = [1]
+##for i in range(TAMANHO-1):
+##    ultimo += randint(1, MAX_PASSO)
+##    lista += [ultimo]
+##lista += [TAMANHO**2]
+print("\nlista gerada em %.5f segundos" % (time() - tempo_inicial))
+
 
 avaliar_busca(busca_binaria, "busca binaria", lista)
 avaliar_busca(busca_interpolada, "busca interpolada", lista)
